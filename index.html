@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
+</head>
+<body class="bg-secondary mb-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center text-warning mt-3" >Billing System</h1>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-3">
+                <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; ">Customer Name</label>
+                <input type="text" readonly  class="form-control" id="cname">
+            </div>
+            <div class="col-1 mt-2"><br>
+                <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal">+</button>
+            </div>
+            <div class="col-2">
+                <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; ">Customer Mobile</label>
+                <input type="text" readonly class="form-control" id="cmobile">
+            </div>
+            <div class="col-2">
+                <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; ">Pre Deus</label>
+                <input type="text" readonly class="form-control" id="cdeus">
+            </div>
+            <div class="col-2">
+                <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; ">Invoice No</label>
+                <input type="text" readonly class="form-control" id="cinvice">
+            </div>
+            <div class="col-2"> 
+                <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; ">Invoice Date</label>
+                <input type="date" readonly class="form-control" id="cidate">
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12 mt-3">
+                <table  class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Pro Name</th>
+                        <th>Pro Size</th>
+                        <th>Pro Rate</th>
+                        <th>Qty</th>
+                        <th>Tax</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    <tr>
+                        <td><input type="text" class="form-control" >
+                        </th>
+                        <td>
+                            <input type="text" class="form-control" >
+                        </th>
+                        <td>
+                            <input type="text" class="form-control" id="rate">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="qty" >
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="tax" >
+                        </td>
+                        <td>
+                            <input type="text" class="form-control rowtot" id="Tot" readonly>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <button class="btn btn-info" id="add_more">Add More</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+            <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; "> Total Amount</label>
+            <input type="text" readonly class="form-control dist1" id="totamt12" >
+        </div>
+        <div class="col-2">
+            <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; ">  Dis Amount (%)</label>
+            <input type="text" class="form-control" id="dis1"   onkeyup="dis()" >
+        </div>
+        <div class="col-2">
+            <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; ">Net Total</label>
+            <input type="text" class="form-control" id="nett" readonly >
+        </div>
+        <div class="col-1 pl-1 pt-0">
+            <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; "> Paid Type</label><br>
+            <select style="height: 40px; width: 100px; " class="form-control ">
+                <option>Choose</option>
+                <option>Onlilne</option>
+                <option>Cash</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; "> Paid Amount</label>
+            <input type="text" class="form-control" id="paid" onkeyup="paidd(),deu()" >
+        </div>
+        <div class="col-2">
+            <label style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: 800; "> Deu Amount</label>
+            <input type="text" class="form-control"  style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: 800; color: black; font-style:bold; font-size: 20px;" id="deuamt" readonly >
+        </div>
+        <div class="col-1 mt-2 "><br>
+            <button class="btn btn-info">Print</button>
+        </div>
+        </div>
+
+        <div class="row">
+           
+        </div>
+    </div>
+    
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New Customer</h5>
+              
+            </div>
+            <div class="modal-body">
+                    <div class="row">
+                    <div class="col-12">
+                        <label> Customer Name</label>
+                        <input  type="text" required class="form-control" id="cname1">
+                    </div>
+                
+                    <div class="col-12">
+                        <label> Mobile</label>
+                        <input  type="text" required class="form-control" id="cmobile1">
+                    </div>
+                    <div class="col-12">
+                        <label> pre deus</label>
+                        <input  type="text" value="0" class="form-control predeu" id="cdeus1">
+                    </div>
+                    <div class="col-12">
+                        <label> invice no</label>
+                        <input  type="text" required class="form-control" id="cinvice1">
+                    </div>
+                    <div class="col-12">
+                        <label> invoiceDate</label>
+                        <input  type="date" required class="form-control" id="cidate1">
+                    </div>
+                </div>
+    
+    
+    
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="add_customer">Add New Customer</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+
+      <script>
+        $(document).ready(function(){
+            $('#add_more').click(function(){
+                var len=$('#tbody tr').length;
+                var r1='rate'+len
+                var q1='qty'+len
+                var t1='tax'+len 
+                var ta1='Tot'+len
+
+                var data='<tr><td>   <input type="text" class="form-control" id=""></th><td>  <input type="text" class="form-control" id=""></th><td>  <input type="text" class="form-control" onkeyup="cal('+r1+','+q1+','+t1+','+ta1+')" id="'+r1+'"></td><td>    <input type="text" class="form-control" onkeyup="cal('+r1+','+q1+','+t1+','+ta1+')" id="'+q1+'"></td><td><input type="text" class="form-control" onkeyup="cal('+r1+','+q1+','+t1+','+ta1+')" id="'+t1+'"></td>       <td><input type="text" class="form-control rowtot" id="'+ta1+'"></td></tr>'
+                $('#tbody').append(data)
+            })
+
+            $('#add_customer').click(function(){
+                var cname=$('#cname1').val()
+                var cmobile=$('#cmobile1').val()
+                var cdeus=$('#cdeus1').val()
+                var cinvice=$('#cinvice1').val()
+                var cidate=$('#cidate1').val()
+
+                $('#cname').val(cname)
+                $('#cmobile').val(cmobile)
+                $('#cdeus').val(cdeus)
+                $('#cinvice').val(cinvice)
+                $('#cidate').val(cidate)
+
+
+                $('#exampleModal').modal('hide')
+            })
+            
+            $('#rate,#qty,#tax').keyup(function(){
+                var rate=$('#rate').val();
+                var qty=$('#qty').val();
+                var tax=$('#tax').val();
+
+                var totamt=Number(rate)*Number(qty);
+                var taxtot=totamt*Number(tax)/100;
+                var total=totamt+taxtot;
+                $('#Tot').val(total)
+                total22()
+            })
+        })
+
+
+        function cal(r,q,t,taa){
+            var raz=r.value
+            var qaz=q.value
+            var taz=t.value
+            var taaz=taa.value
+
+            var Tot=Number(raz)*Number(qaz);
+            var Taxt=Tot*Number(taz)/100;
+            var net=Tot+Taxt;
+            taa.value=net;
+            total22()
+            }
+
+            function total22()
+            {
+                var a=document.getElementsByClassName('rowtot');
+                var sum=0;
+                for(var i=0;i<a.length;i++){
+                   sum+=Number(a[i].value) ;
+                }
+                document.getElementById('totamt12').value=sum;
+
+            }
+
+            function dis(){
+                var a=document.getElementsByClassName('dist1')[0].value;
+                var ds=document.getElementById('dis1').value;
+                var dis11=a*ds/100;
+                var totall=a-dis11;
+                var m=Math.ceil(totall);
+                document.getElementById('nett').value=m;
+            }
+            function paidd(){
+                var a=document.getElementById('paid').value;
+                var b=document.getElementById('nett').value;
+                var c=Number(b)-Number(a);
+                var d=document.getElementsByClassName('predeu')[0].value;
+                var f=Number(c)+Number(d);
+                document.getElementById('deuamt').value=f+" /-";
+            }
+
+           
+      </script>
+
+</body>
+</html>
